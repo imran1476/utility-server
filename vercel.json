@@ -9,9 +9,7 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://lucent-narwhal-879475.netlify.app" 
-          // **গুরুত্বপূর্ণ:** এখানে আপনার Netlify ডোমেইনটি দিতে হবে। 
-          // একাধিক ডোমেইন হলে, * ব্যবহার করুন অথবা Middleware ব্যবহার করুন।
+          "value": "https://lucent-narwhal-879475.netlify.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
