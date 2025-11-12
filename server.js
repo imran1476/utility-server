@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import authRoutes from './routes/auth.js';
+ import authRoutes from './routes/auth.js';
+
 import billsRoutes from './routes/bills.js';
 import myBillsRoutes from './routes/myBills.js';
 

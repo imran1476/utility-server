@@ -4,10 +4,18 @@ import Bill from '../models/Bill.js';
 // Add new bill
 export const addBill = async (req, res) => {
   try {
-    const bill = await Bill.create(req.body);
-    res.json({ message: "Bill added", bill });
+    const { username, email, amount, address, phone, category } = req.body;
+
+    // Validate required fields
+    if (!username || !email || !amount || !address || !phone) {
+      return res.status(400).json({ message: "All required fields must be provided" });
+    }
+
+    const bill = await Bill.create({ username, email, amount, address, phone, category });
+    res.status(201).json({ message: "Bill added", bill });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Add Bill Error:", err.message);
+    res.status(500).json({ message: "Server error: " + err.message });
   }
 };
 
@@ -21,7 +29,8 @@ export const getBills = async (req, res) => {
     const bills = await Bill.find(query).limit(limit ? parseInt(limit) : 0);
     res.json(bills);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Get Bills Error:", err.message);
+    res.status(500).json({ message: "Server error: " + err.message });
   }
 };
 
@@ -32,6 +41,7 @@ export const getBillById = async (req, res) => {
     if (!bill) return res.status(404).json({ message: "Bill not found" });
     res.json(bill);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Get Bill By ID Error:", err.message);
+    res.status(500).json({ message: "Server error: " + err.message });
   }
 };
