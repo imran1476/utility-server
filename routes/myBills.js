@@ -1,9 +1,10 @@
 import express from 'express';
-import { payBill, getMyBills, updateMyBill, deleteMyBill } from './controllers/myBillsController.js';
+import { payBill, getMyBills, updateMyBill, deleteMyBill } from '../controllers/myBillsController.js';
 
 const router = express.Router();
+
 router.post('/', payBill);
-router.get('/:email', getMyBills);
+router.get('/:email', getMyBills); // path param fix
 router.put('/:id', updateMyBill);
 router.delete('/:id', deleteMyBill);
 

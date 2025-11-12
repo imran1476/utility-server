@@ -1,4 +1,5 @@
-import Bill from './models/Bill.js';
+// controllers/billsController.js
+import Bill from '../models/Bill.js';
 
 // Add new bill
 export const addBill = async (req, res) => {
@@ -13,11 +14,11 @@ export const addBill = async (req, res) => {
 // Get all bills
 export const getBills = async (req, res) => {
   try {
-    const { category } = req.query;
+    const { category, limit } = req.query;
     let query = {};
     if (category) query.category = category;
 
-    const bills = await Bill.find(query).limit(6);
+    const bills = await Bill.find(query).limit(limit ? parseInt(limit) : 0);
     res.json(bills);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -28,6 +29,7 @@ export const getBills = async (req, res) => {
 export const getBillById = async (req, res) => {
   try {
     const bill = await Bill.findById(req.params.id);
+    if (!bill) return res.status(404).json({ message: "Bill not found" });
     res.json(bill);
   } catch (err) {
     res.status(500).json({ message: err.message });

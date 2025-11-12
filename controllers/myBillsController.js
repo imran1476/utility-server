@@ -1,6 +1,7 @@
-import MyBill from './models/MyBill.js';
+// controllers/myBillsController.js
+import MyBill from '../models/MyBill.js';
 
-// Pay bill
+// Pay a bill
 export const payBill = async (req, res) => {
   try {
     const myBill = await MyBill.create(req.body);
@@ -10,7 +11,7 @@ export const payBill = async (req, res) => {
   }
 };
 
-// Get bills for logged-in user
+// Get bills for a specific user by email
 export const getMyBills = async (req, res) => {
   try {
     const { email } = req.params; // frontend will send user email
@@ -21,22 +22,24 @@ export const getMyBills = async (req, res) => {
   }
 };
 
-// Update myBill
+// Update a bill
 export const updateMyBill = async (req, res) => {
   try {
     const { id } = req.params;
     const updated = await MyBill.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updated) return res.status(404).json({ message: "Bill not found" });
     res.json({ message: "Bill updated", updated });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// Delete myBill
+// Delete a bill
 export const deleteMyBill = async (req, res) => {
   try {
     const { id } = req.params;
-    await MyBill.findByIdAndDelete(id);
+    const deleted = await MyBill.findByIdAndDelete(id);
+    if (!deleted) return res.status(404).json({ message: "Bill not found" });
     res.json({ message: "Bill deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
