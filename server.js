@@ -12,7 +12,7 @@ const app = express();
 
 // ✅ CORS: allow frontend to call backend
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://your-frontend-vercel-url.vercel.app'], 
+  origin: ['http://localhost:5173', 'https://lucent-narwhal-879475.netlify.app/'], 
   credentials: true,
 }));
 
